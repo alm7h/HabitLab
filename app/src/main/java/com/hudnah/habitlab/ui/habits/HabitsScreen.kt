@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -159,6 +161,7 @@ private fun HabitRow(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun HabitEditorDialog(
     initial: Habit?,
@@ -182,8 +185,11 @@ private fun HabitEditorDialog(
                     modifier = Modifier.fillMaxWidth().testTag(TestTags.HABIT_NAME_FIELD)
                 )
                 Text("Icon", modifier = Modifier.padding(top = 12.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    HabitIcons.take(5).forEach { (key, icon) ->
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    HabitIcons.forEach { (key, icon) ->
                         Icon(
                             painter = rememberVectorPainter(icon),
                             contentDescription = key,
@@ -193,8 +199,11 @@ private fun HabitEditorDialog(
                     }
                 }
                 Text("Farbe", modifier = Modifier.padding(top = 12.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    HabitColors.take(6).forEach { hex ->
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    HabitColors.forEach { hex ->
                         Box(
                             modifier = Modifier
                                 .size(28.dp)
