@@ -36,7 +36,7 @@ val HabitColors: List<String> = listOf(
     "#42A5F5", // blau
     "#26A69A", // teal
     "#66BB6A", // grün
-    "#FFA726"  // orange
+    "#FFA726", // orange
     "#2E7D32", // dunkelgrün
     "#FDD835", // gelb
 )
