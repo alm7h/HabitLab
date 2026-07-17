@@ -96,8 +96,13 @@ private fun Heatmap(days: List<HeatmapDay>, todayEpoch: Long) {
     ) {
         items(days, key = { it.date }) { day ->
             val filled = day.rate > 0f
-            val base = MaterialTheme.colorScheme.primary
-            val cellColor = if (filled) base.copy(alpha = 0.25f + 0.75f * day.rate) else Color(0xFFE0E0E0)
+             val cellColor = when {
+                !filled           -> Color(0xFFEBEDF0) // no completions
+                day.rate <= 0.25f -> Color(0xFF9BE9A8) // lightest green
+                day.rate <= 0.50f -> Color(0xFF40C463)
+                day.rate <= 0.75f -> Color(0xFF30A14E)
+                else              -> Color(0xFF216E39) // darkest green
+            }
             val tagModifier = if (day.date == todayEpoch) Modifier.testTag(TestTags.HEATMAP_TODAY) else Modifier
             Box(
                 modifier = Modifier
